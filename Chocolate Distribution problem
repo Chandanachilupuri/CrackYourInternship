@@ -1,0 +1,16 @@
+class Solution:
+    def findMinDiff(self, A, N, M):
+        # Sort the array
+        A.sort()
+        
+        # Initialize the minimum difference as a large number
+        min_diff = float('inf')
+        
+        # Use a sliding window to find the minimum difference
+        for i in range(N - M + 1):
+            diff = A[i + M - 1] - A[i]
+            if diff < min_diff:
+                min_diff = diff
+        
+        return min_diff
+
