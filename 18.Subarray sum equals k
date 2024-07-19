@@ -1,0 +1,22 @@
+from typing import List
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        count = {0: 1}  # Initialize the dictionary with sum 0 having one occurrence
+        current_sum = 0
+        res = 0
+        
+        for num in nums:
+            current_sum += num
+            # Check if there's a prefix subarray we can remove to get sum k
+            if (current_sum - k) in count:
+                res += count[current_sum - k]
+            # Update the count of the current_sum in the dictionary
+            if current_sum in count:
+                count[current_sum] += 1
+            else:
+                count[current_sum] = 1
+        
+        return res
+
+
