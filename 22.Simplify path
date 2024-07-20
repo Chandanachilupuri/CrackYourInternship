@@ -1,0 +1,25 @@
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        # Initialize a stack to hold the valid parts of the path
+        stack = []
+        
+        # Split the path by slashes to process each part
+        parts = path.split("/")
+        
+        # Process each part of the path
+        for part in parts:
+            if part == "" or part == ".":
+                # Skip empty parts or current directory references
+                continue
+            elif part == "..":
+                # Move up one directory level, if possible
+                if stack:
+                    stack.pop()
+            else:
+                # Push valid directory or file name onto the stack
+                stack.append(part)
+        
+        # Join the stack to form the canonical path
+        canonical_path = "/" + "/".join(stack)
+        
+        return canonical_path
