@@ -1,0 +1,17 @@
+from itertools import permutations
+
+class Solution:
+    def uniquePerms(self, arr, n):
+        # Generate all permutations
+        all_perms = permutations(arr)
+        
+        # Use a set to store unique permutations
+        unique_perms = set(all_perms)
+        
+        # Convert the set to a list and sort it
+        sorted_unique_perms = sorted(unique_perms)
+        
+        # Convert tuples to lists as the output format requires lists of lists
+        result = [list(perm) for perm in sorted_unique_perms]
+        
+        return result
