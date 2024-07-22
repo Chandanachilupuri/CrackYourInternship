@@ -1,0 +1,53 @@
+def max_histogram_area(histogram):
+    stack = []
+    max_area = 0
+    index = 0
+
+    while index < len(histogram):
+        if not stack or histogram[stack[-1]] <= histogram[index]:
+            stack.append(index)
+            index += 1
+        else:
+            top_of_stack = stack.pop()
+            area = (histogram[top_of_stack] *
+                   ((index - stack[-1] - 1) if stack else index))
+            max_area = max(max_area, area)
+
+    while stack:
+        top_of_stack = stack.pop()
+        area = (histogram[top_of_stack] *
+               ((index - stack[-1] - 1) if stack else index))
+        max_area = max(max_area, area)
+
+    return max_area
+
+def max_rectangle(matrix):
+    if not matrix or not matrix[0]:
+        return 0
+
+    num_rows = len(matrix)
+    num_cols = len(matrix[0])
+
+    max_area = 0
+    histogram = [0] * num_cols
+
+    for i in range(num_rows):
+        for j in range(num_cols):
+            if matrix[i][j] == 0:
+                histogram[j] = 0
+            else:
+                histogram[j] += 1
+
+        max_area = max(max_area, max_histogram_area(histogram))
+
+    return max_area
+
+# Example usage:
+matrix = [
+    [1, 0, 1, 0, 0],
+    [1, 0, 1, 1, 1],
+    [1, 1, 1, 1, 1],
+    [1, 0, 0, 1, 0]
+]
+
+print("The maximum area of a rectangle with all 1s is:", max_rectangle(matrix))
