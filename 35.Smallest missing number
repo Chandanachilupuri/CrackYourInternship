@@ -1,0 +1,10 @@
+class Solution:
+    def missingNumber(self, arr, n):
+        found = [False] * (n + 2)
+        for i in range(n):
+            if arr[i] > 0 and arr[i] <= n:
+                found[arr[i]] = True
+        for i in range(1, n + 2):
+            if found[i] == False:
+                return i
+        return n + 1
